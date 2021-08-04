@@ -1,4 +1,5 @@
-# This is a development environment for agent learning framework.
+# This is a development environment for OpenAI's phasic policy
+# gradient implementation.
 
 { mkShell
 , python3
