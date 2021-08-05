@@ -6,6 +6,10 @@
 
     utils.url = "github:numtide/flake-utils";
     utils.inputs.nixpkgs.follows = "nixpkgs";
+
+    ml-pkgs.url = "github:nixvital/ml-pkgs";
+    ml-pkgs.inputs.nixpkgs.follows = "nixpkgs";
+    ml-pkgs.inputs.utils.follows = "utils";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: inputs.utils.lib.eachSystem [
@@ -17,7 +21,7 @@
           overlays = [
             # Use this overlay to provide customized python packages
             # for development environment.
-            (import ./nix/overlays/dev.nix)
+            inputs.ml-pkgs.overlay
           ];
         };
     in {

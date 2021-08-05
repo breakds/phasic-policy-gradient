@@ -14,6 +14,7 @@ let pythonForPPG = python3.withPackages (pyPkgs: with pyPkgs; [
       numpy pandas
       gym matplotlib
       mpi4py
+      procgen
     ]);
 
     pythonIcon = "f3e2";
