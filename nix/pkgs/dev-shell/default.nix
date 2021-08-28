@@ -4,7 +4,7 @@
 { mkShell
 , python3
 , python-language-server
-, mpich
+, openmpi
 }:
 
 let pythonForPPG = python3.withPackages (pyPkgs: with pyPkgs; [
@@ -25,7 +25,7 @@ in mkShell rec {
   packages = [
     pythonForPPG
     python-language-server  # From Microsoft, not Palantir
-    mpich
+    openmpi
   ];
 
   # This is to have a leading python icon to remind the user we are in
