@@ -184,7 +184,7 @@ def torch_init_process_group(
                 dist.init_process_group(backend=backend, init_method=f"env://")
 
             except RuntimeError as e:
-                _log(f"failed with error '{e}', trying again")
+                print(f"failed with error '{e}', trying again")
 
             # We check if we are initialized here because it helps to avoid errors of:
             # "trying to initialize the default process group twice!"
@@ -289,6 +289,7 @@ def setup_dist(
                 backend != "nccl"
             ), "nccl backend will not work with device_type='cpu'"
         DEFAULT_COMM = comm
+        print(f'using backend {backend}')
         torch_init_process_group(backend=backend, start_port=start_port, comm=comm)
 
 def dev():
