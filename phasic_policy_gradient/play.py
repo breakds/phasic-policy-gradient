@@ -13,13 +13,20 @@ if __name__ == '__main__':
     step = 0
     state_in = model.initial_state(env.num)
     print(f'state_in={state_in}')
+    _, obs, first = tree_map(tu.np2th, env.observe())
+
     while True:
-        rew, obs, first = tree_map(tu.np2th, env.observe())        
-        action = types_np.sample(env.ac_space, bshape=(env.num,))
+        # action = types_np.sample(env.ac_space, bshape=(env.num,))
         action, state_out, _ = model.act(obs, first, state_in)
         env.act(tree_map(tu.th2np, action))
         state_in = state_out
+        rew, obs, first = tree_map(tu.np2th, env.observe())
         print(f"step {step} reward {rew} first {first}")
+        info = env.get_info()[0]
+        try:
+            print(f'complete = {info["prev_level_complete"]}, prev_seed = {info["prev_level_seed"]}, seed = {info["level_seed"]}')
+        except:
+            pass
         if step > 0 and first:
             step = 0
         step += 1
